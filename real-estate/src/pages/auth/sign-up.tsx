@@ -2,7 +2,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
-import styles from '../styles/signUp.module.css'; // Import scoped styles for this component
+import styles from '../../styles/signUp.module.css'; // Import scoped styles for this component
 import Link from 'next/link';
 
 interface Errors {
@@ -61,7 +61,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/user/register', { name, email, password });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_USER_REGISTER_URL}`, { name, email, password });
       localStorage.setItem("userId", response.data.user._id);
       localStorage.setItem('token', response.data.token);
       Swal.fire({
@@ -115,7 +115,7 @@ const SignUp = () => {
           <button className={styles.formBtn}>Create account</button>
         </form>
         <p className={styles.signUpLabel}>
-          Already have an account? <span className={styles.signUpLink}> <Link href="/components/signIn">Login</Link> </span>
+          Already have an account? <span className={styles.signUpLink}> <Link href="/auth/sign-in">Login</Link> </span>
         </p>
         
       </div>

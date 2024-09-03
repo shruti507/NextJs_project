@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import link from "next/link";
-import SignUp from "../components/signUp";
+import SignUp from "./auth/sign-up";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
