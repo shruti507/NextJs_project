@@ -17,7 +17,7 @@ interface Property {
 }
 
 // Define the functional component
-const Favorite: React.FC = () => {
+const Favorite = () => {
   const [favorites, setFavorites] = useState<Property[]>([]); // State for favorites
   const [loading, setLoading] = useState<boolean>(true); // Loading state
   const router = useRouter(); // Next.js router
@@ -28,10 +28,12 @@ const Favorite: React.FC = () => {
       try {
         if (userId) {
           const response = await axios.post<Property[]>(
+            
             `${process.env.NEXT_PUBLIC_PROPERTY_VIEW_FAVORITES_URL}`,
             { userId }
           );
           setFavorites(response.data);  // Update favorites
+          console.log(response.data[0]);  // Update favorites
         } else {
           router.push('/login'); // Redirect to login if userId is not available
         }
@@ -61,7 +63,7 @@ const Favorite: React.FC = () => {
 
       if (result.isConfirmed) {
         const response = await axios.delete(
-          `${process.env.NEXT_PUBLIC_PROPERTY_DELETE_URL}/${propertyId}/${userId}`
+          `http://localhost:3000/properties/deleteProperty/${propertyId}/${userId}`
         );
 
         if (response.status === 200) {
@@ -92,11 +94,13 @@ const Favorite: React.FC = () => {
           favorites.map(property => (
             <div className="col-md-4 mb-4" key={property._id}>
               <div className="card shadow-sm border-light">
-                <Image
-                  src={property.images} // Display the first image
-                  className="card-img-top"
+               <Image
+                  src={property.images[0]}
                   alt={property.address || 'Property Image'}
-                  style={{ objectFit: 'cover', height: '200px' }}
+                  width={500}
+                  height={200}
+                  className="card-img-top"
+                  style={{ objectFit: 'cover' }}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{property.address}</h5>
@@ -109,7 +113,7 @@ const Favorite: React.FC = () => {
                   </p>
                 </div>
                 <div className="card-footer d-flex justify-content-between">
-                  <button className="btn btn-secondary" onClick={() => handleDelete(property._id)}>Delete</button>
+                  <button className="btn btn-secondary" onClick={() => handleDelete(property._id)}>Remove</button>
                 </div>
               </div>
             </div>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ts-node": "ts-node"
   },
   "dependencies": {
     "axios": "^1.7.7",
@@ -14,6 +15,7 @@
     "dotenv": "^16.4.5",
     "next": "14.2.7",
     "react": "^18",
+    "react-bootstrap": "^2.10.4",
     "react-dom": "^18",
     "react-icons": "^5.3.0",
     "sweetalert2": "^11.12.4"
@@ -26,6 +28,7 @@
     "eslint-config-next": "14.2.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

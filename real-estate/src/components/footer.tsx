@@ -1,8 +1,10 @@
-// components/Footer.tsx
-import React from 'react';
-import styles from './Footer.module.css'; // Import CSS module for scoped styles
+// src/components/Footer.tsx
 
-const Footer: React.FC = () => {
+import React from 'react';
+import styles from './Footer.module.css'; // Import your CSS module if using CSS modules, or adjust the path as needed
+import Link from "next/link";
+
+const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className="container">
@@ -11,7 +13,7 @@ const Footer: React.FC = () => {
             <p>
               © Copyright 2021 Space Dynamic Co. All Rights Reserved.
               <br />
-              Design: <a rel="nofollow" href="https://templatemo.com" target="_blank" rel="noopener noreferrer">TemplateMo</a>
+              {/* Design: <Link rel="nofollow" href="https://templatemo.com" target="_blank" rel="noopener noreferrer">TemplateMo</Link> */}
             </p>
           </div>
         </div>

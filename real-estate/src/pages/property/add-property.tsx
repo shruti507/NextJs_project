@@ -16,7 +16,7 @@ interface PropertyFormValues {
 }
 
 // Main component
-const AddProperty: React.FC = () => {
+const AddProperty = () => {
   // State variables for form fields and token
   const [formValues, setFormValues] = useState<PropertyFormValues>({
     address: '',

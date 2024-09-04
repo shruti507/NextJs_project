@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
+// src/components/Header.tsx
+import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaHeart } from 'react-icons/fa'; // Import the heart icon from react-icons
+import { FaHeart } from 'react-icons/fa';
 import axios from 'axios';
 import Link from 'next/link';
 
@@ -9,36 +10,33 @@ interface HeaderProps {
   setProperties: (properties: any[]) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ setProperties }) => {
+const Header = ({ setProperties }: HeaderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const router = useRouter();
   const [filteredProperties, setFilteredProperties] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the timeout ID
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Check if token exists in localStorage or sessionStorage
     const token = localStorage.getItem('userId') || sessionStorage.getItem('token');
     setIsAuthenticated(!!token);
   }, []);
 
   const handleAddPropertyClick = () => {
-    router.push('/add-property');
+    router.push('/property/add-property');
   };
 
   const handleLoginClick = () => {
-    router.push('/register');
+    router.push('/auth/sign-in');
   };
 
   const handleLogoutClick = () => {
-    // Remove token from storage
     localStorage.removeItem('userId');
     sessionStorage.removeItem('userId');
     setIsAuthenticated(false);
-    router.push('/'); // Redirect to homepage or any other page after logout
+    router.push('/');
   };
 
-  // Function to fetch properties based on search term
   const fetchFilteredProperties = async (term: string) => {
     const url = `${process.env.NEXT_PUBLIC_PROPERTY_SEARCH_URL}?address=${term}`;
     try {
@@ -51,20 +49,17 @@ const Header: React.FC<HeaderProps> = ({ setProperties }) => {
     }
   };
 
-  // Debounce handler
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
 
-    // Clear the previous timeout if it exists
     if (debounceTimeoutRef.current) {
       clearTimeout(debounceTimeoutRef.current);
     }
 
-    // Set a new timeout
     debounceTimeoutRef.current = setTimeout(() => {
       fetchFilteredProperties(value);
-    }, 300); // 300ms debounce delay
+    }, 300);
   };
 
   return (
@@ -82,10 +77,10 @@ const Header: React.FC<HeaderProps> = ({ setProperties }) => {
               <Link className="nav-link active" href="/" aria-current="page">Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" onClick={() => router.push('/about')} style={{ cursor: "pointer" }}>About Us</a>
+              <a className="nav-link" onClick={() => router.push('/navbar/about')} style={{ cursor: "pointer" }}>About Us</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" onClick={() => router.push('/user-property')} style={{ cursor: "pointer" }}>Properties</a>
+              <a className="nav-link" onClick={() => router.push('/property/propertylist')} style={{ cursor: "pointer" }}>Properties</a>
             </li>
           </ul>
           <form className="d-flex ms-auto mb-2 mb-lg-0" role="search">
@@ -105,9 +100,9 @@ const Header: React.FC<HeaderProps> = ({ setProperties }) => {
                 <button className="btn btn-info" onClick={handleAddPropertyClick} aria-label="Add Property">Add Properties</button>
               </>
             ) : (
-              <button className="btn btn-primary me-2" onClick={handleLoginClick} aria-label="Login">Login</button>
+              <button className="btn btn-primary me-2" style={{zIndex:'10'}} onClick={handleLoginClick} aria-label="Login">Login</button>
             )}
-            <button className="btn btn-light" onClick={() => router.push('/fav')}>
+            <button className="btn btn-light" onClick={() => router.push('/property/fav')}>
               <FaHeart size={20} aria-label="Favorites" />
             </button>
           </div>
