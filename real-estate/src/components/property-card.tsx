@@ -8,6 +8,7 @@ interface PropertyCardProps {
   property: Property;
 }
 
+
 const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
     <div className="card mb-4">

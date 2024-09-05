@@ -29,8 +29,7 @@ const Favorite = () => {
         if (userId) {
           const response = await axios.post<Property[]>(
             
-            `${process.env.NEXT_PUBLIC_PROPERTY_VIEW_FAVORITES_URL}`,
-            { userId }
+            `${process.env.NEXT_PUBLIC_PROPERTY_VIEW_FAVORITES_URL}`, { userId }
           );
           setFavorites(response.data);  // Update favorites
           console.log(response.data[0]);  // Update favorites

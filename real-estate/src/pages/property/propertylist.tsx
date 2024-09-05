@@ -18,7 +18,7 @@ const PropertyList = () => {
         const token = sessionStorage.getItem('token') || '';
         const userId:any = localStorage.getItem("userId")
         
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_PROPERTY_VIEW_USER_URL}`,{userId:userId} );
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_PROPERTY_VIEW_USER_URL}`, {userId:userId} );
 
         setProperties(response.data);
       } catch (error: any) {
@@ -39,7 +39,7 @@ const PropertyList = () => {
     <div className="container-lg mt-5 shadow-lg p-4 mb-5 bg-white rounded">
       <div className="row">
         {properties.map((property) => (
-          <div className="col-md-4" key={property.id}>
+          <div className="col-md-4" key={property._id}>
             <PropertyCard property={property} />
           </div>
         ))}
